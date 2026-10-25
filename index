@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nuestro mesiversario 💖</title>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--h:250;--p:0;--beat:3s;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:#10081c}
+body{margin:0;min-height:100vh;font-family:Quicksand,system-ui,sans-serif;color:#fff;
+background:radial-gradient(ellipse at 50% -10%,hsl(var(--h) 70% calc(24% + var(--p)*14%)),hsl(calc(var(--h) + 40) 60% 8%) 75%) fixed;overflow-x:hidden}
+#fx{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:1}
+main{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:28px 18px 50px;display:flex;flex-direction:column;gap:22px;text-align:center}
+h1{font-family:"Dancing Script",cursive,serif;font-size:clamp(2.4rem,9vw,3.8rem);margin:6px 0 0;text-shadow:0 0 calc(10px + var(--p)*30px) hsl(var(--h) 100% 70%)}
+.sub{margin:0;opacity:.85;font-size:1.05rem}
+.card{background:hsl(var(--h) 40% 12% / .55);backdrop-filter:blur(8px);border:1px solid hsl(var(--h) 80% 70% / .3);border-radius:26px;padding:24px 16px;
+box-shadow:0 0 calc(12px + var(--p)*60px) hsl(var(--h) 90% 60% / calc(.15 + var(--p)*.5))}
+.card h2{margin:0 0 16px;font-size:1.1rem;font-weight:600;letter-spacing:.03em}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.box{background:hsl(var(--h) 60% 20% / .7);border-radius:18px;padding:14px 4px;animation:beat var(--beat) ease-in-out infinite}
+.box b{display:block;font-size:clamp(1.8rem,8vw,3rem);font-variant-numeric:tabular-nums;line-height:1.1}
+.box span{font-size:.75rem;text-transform:uppercase;letter-spacing:.12em;opacity:.8}
+@keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(calc(1 + .02 + var(--p)*.05))}}
+.bar{height:12px;border-radius:99px;background:#ffffff1f;margin:20px 6px 8px;overflow:hidden}
+.bar i{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,hsl(250 90% 65%),hsl(330 95% 65%),hsl(20 100% 60%),hsl(48 100% 60%));background-size:calc(100% / max(var(--p),.05)) 100%;transition:width 1s}
+.pct{font-size:.85rem;opacity:.8}
+.status{font-size:1.2rem;font-weight:700;margin:14px 0 0}
+.big{font-family:"Dancing Script",cursive,serif;font-size:clamp(2rem,9vw,3.4rem);margin:0 0 10px;color:hsl(48 100% 75%);text-shadow:0 0 30px hsl(330 100% 60%)}
+.msg{font-size:1.1rem;line-height:1.6;margin:0 auto 18px;max-width:34em}
+button{font:inherit;font-weight:700;color:#fff;border:0;border-radius:99px;padding:12px 26px;cursor:pointer;background:linear-gradient(135deg,#ff4d94,#ff9a3c);box-shadow:0 6px 24px #ff4d9466}
+button:active{transform:scale(.96)}
+.dots{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:16px 0 6px}
+.dots i{width:26px;height:26px;border-radius:50%;background:#ffffff1f;display:grid;place-items:center;font-style:normal;font-size:.9rem;filter:grayscale(1) opacity(.4)}
+.dots i.on{background:hsl(330 90% 60% / .35);filter:none;box-shadow:0 0 12px #ff4d94aa}
+.hidden{display:none!important}
+details{font-size:.8rem;opacity:.6}
+summary{cursor:pointer}
+details input{font:inherit;color:#fff;background:#ffffff22;border:1px solid #fff4;border-radius:8px;padding:6px;margin:8px 4px 0}
+details button{padding:6px 14px;font-size:.8rem}
+@media(max-width:420px){.grid{gap:6px}.box span{font-size:.62rem;letter-spacing:.05em}}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<main>
+  <header>
+    <h1>Nuestro mesiversario 💖</h1>
+    <p class="sub" id="together">…</p>
+  </header>
+
+  <section class="card" id="cd">
+    <h2 id="cdTitle">…</h2>
+    <div class="grid">
+      <div class="box"><b id="d">0</b><span>días</span></div>
+      <div class="box"><b id="h">0</b><span>horas</span></div>
+      <div class="box"><b id="m">0</b><span>min</span></div>
+      <div class="box"><b id="s">0</b><span>seg</span></div>
+    </div>
+    <div class="bar"><i id="bar"></i></div>
+    <div class="pct" id="pct"></div>
+    <p class="status" id="status"></p>
+  </section>
+
+  <section class="card hidden" id="party">
+    <p class="big" id="partyTitle">¡Felices meses, mi amor!</p>
+    <p class="msg" id="partyMsg"></p>
+    <button id="more">🎆 Más fuegos artificiales</button>
+  </section>
+
+  <section class="card">
+    <h2>🎂 Camino a nuestro año juntos</h2>
+    <div class="big" style="font-size:clamp(1.6rem,7vw,2.4rem);color:#fff;text-shadow:0 0 20px #ff4d94" id="yearMain"></div>
+    <div class="dots" id="dots"></div>
+    <div class="pct" id="yearSub"></div>
+  </section>
+
+  <details>
+    <summary>Modo prueba</summary>
+    <input type="datetime-local" id="simIn">
+    <button id="simGo">Simular</button> <button id="simReset">Hoy</button>
+  </details>
+</main>
+
+<script>
+// ====== PERSONALIZA AQUÍ ======
+const START = new Date(2026, 3, 6);   // 6 de abril de 2026 (el mes va de 0 a 11)
+const MENSAJE = "Cada mes a tu lado es mi favorito. Gracias por hacerme tan feliz. Te quiero muchísimo 💖";
+// ==============================
+
+const $ = id => document.getElementById(id);
+let offset = 0;
+const now = () => new Date(Date.now() + offset);
+const anniv = k => new Date(START.getFullYear(), START.getMonth() + k, 6);
+const plural = (n, a, b) => n + " " + (n === 1 ? a : b);
+const fmt = d => d.toLocaleDateString("es-ES", {day: "numeric", month: "long", year: "numeric"});
+
+function monthsDone(n) {
+  let k = (n.getFullYear() - START.getFullYear()) * 12 + n.getMonth() - START.getMonth();
+  while (k > 0 && anniv(k) > n) k--;
+  while (anniv(k + 1) <= n) k++;
+  return Math.max(k, 0);
+}
+
+let P = 0, party = false, wasParty = null;
+
+function tick() {
+  const n = now(), k = monthsDone(n), a = anniv(k), nx = anniv(k + 1);
+  party = k >= 1 && n.getDate() === 6;
+  P = party ? 1 : Math.min(1, Math.max(0, (n - a) / (nx - a)));
+
+  const r = document.documentElement.style;
+  r.setProperty("--h", 250 + 130 * P);
+  r.setProperty("--p", P.toFixed(3));
+  r.setProperty("--beat", (3 - P * 2.4).toFixed(2) + "s");
+
+  const days = Math.max(0, Math.floor((n - START) / 864e5));
+  $("together").textContent = "Llevamos " + plural(k, "mes", "meses") + " juntos · " + plural(days, "día", "días") + " de amor 💞";
+
+  const diff = Math.max(0, nx - n);
+  const dd = Math.floor(diff / 864e5), hh = Math.floor(diff / 36e5) % 24, mm = Math.floor(diff / 6e4) % 60, ss = Math.floor(diff / 1e3) % 60;
+  $("d").textContent = dd; $("h").textContent = String(hh).padStart(2, "0");
+  $("m").textContent = String(mm).padStart(2, "0"); $("s").textContent = String(ss).padStart(2, "0");
+  $("cdTitle").textContent = "Faltan para cumplir " + plural(k + 1, "mes", "meses") + " (" + fmt(nx) + ")";
+  $("bar").style.width = (P * 100).toFixed(1) + "%";
+  $("pct").textContent = "Llevamos el " + (P * 100).toFixed(0) + "% del camino hasta el próximo mesiversario";
+  const st = dd > 20 ? "Todavía falta, pero cada día cuenta 🌱"
+    : dd > 10 ? "Ya huele a mesiversario ✨"
+    : dd > 5 ? "¡Se acerca! 💗"
+    : dd > 2 ? "¡Casi casi! 🔥"
+    : dd >= 1 ? "¡Ya es mañana o pasado! 😍"
+    : "¡¡Falta menos de un día!! 🎆";
+  $("status").textContent = st;
+
+  // Modo celebración
+  $("party").classList.toggle("hidden", !party);
+  $("cd").classList.toggle("hidden", party);
+  if (party) {
+    const y = k / 12;
+    $("partyTitle").textContent = k % 12 === 0 ? "¡¡UN AÑO JUNTOS!! 🥂" : k > 12 && k % 12 === 0 ? "" : "¡Hoy cumplimos " + plural(k, "mes", "meses") + "! 🎉";
+    if (k % 12 === 0 && y > 1) $("partyTitle").textContent = "¡¡" + y + " AÑOS JUNTOS!! 🥂";
+    $("partyMsg").textContent = MENSAJE;
+  }
+  if (wasParty !== party) { if (party) launchShow(); wasParty = party; }
+
+  // Año
+  const dots = $("dots");
+  const yrs = Math.floor(k / 12), mo = k % 12;
+  if (dots.children.length !== 12) dots.innerHTML = "<i>💗</i>".repeat(12);
+  [...dots.children].forEach((el, i) => el.classList.toggle("on", i < mo || (k >= 12 && false)));
+  if (k < 12) {
+    const left = 12 - k, ya = anniv(12);
+    $("yearMain").textContent = "Quedan " + plural(left, "mes", "meses") + " para el año";
+    $("yearSub").textContent = "Será el " + fmt(ya) + " · faltan " + plural(Math.ceil((ya - n) / 864e5), "día", "días");
+  } else {
+    $("yearMain").textContent = "Llevamos " + plural(yrs, "año", "años") + (mo ? " y " + plural(mo, "mes", "meses") : "");
+    const ny = anniv((yrs + 1) * 12);
+    $("yearSub").textContent = "Próximo aniversario: " + fmt(ny) + " · faltan " + plural(Math.ceil((ny - n) / 864e5), "día", "días");
+  }
+}
+
+// ====== Efectos ======
+const cv = $("fx"), ctx = cv.getContext("2d");
+let W, H;
+function size() { W = cv.width = innerWidth; H = cv.height = innerHeight; }
+addEventListener("resize", size); size();
+const hearts = [], sparks = [], EM = ["💖", "💗", "💕", "💘", "✨"];
+
+function burst(x, y) {
+  const hue = Math.random() * 360, c = 70 + (Math.random() * 40 | 0);
+  for (let i = 0; i < c; i++) {
+    const a = Math.random() * 6.283, v = 1 + Math.random() * 5;
+    sparks.push({x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v, life: 1, hue: hue + Math.random() * 40});
+  }
+}
+function launchShow() {
+  for (let i = 0; i < 10; i++) setTimeout(() => burst(W * (.15 + Math.random() * .7), H * (.15 + Math.random() * .4)), i * 350);
+  for (let i = 0; i < 80; i++) setTimeout(() => spawn(true), i * 25);
+}
+function spawn(fall) {
+  hearts.push({x: Math.random() * W, y: fall ? -30 : H + 30, s: 14 + Math.random() * (14 + P * 16),
+    vy: (fall ? 1 : -1) * (.5 + Math.random() * (1 + P * 2)), vx: (Math.random() - .5) * .6, a: .35 + Math.random() * .5,
+    e: EM[Math.random() * EM.length | 0], ph: Math.random() * 6});
+}
+let last = 0;
+function loop(t) {
+  ctx.clearRect(0, 0, W, H);
+  // corazones: más cuanto más cerca está el mesiversario
+  if (Math.random() < .03 + P * P * .55) spawn(party && Math.random() < .5);
+  if (party && Math.random() < .02) burst(Math.random() * W, Math.random() * H * .6);
+  if (P > .85 && !party && Math.random() < .008) burst(Math.random() * W, Math.random() * H * .5);
+  for (let i = hearts.length - 1; i >= 0; i--) {
+    const h = hearts[i]; h.y += h.vy; h.x += h.vx + Math.sin(t / 700 + h.ph) * .4;
+    if (h.y < -50 || h.y > H + 50) { hearts.splice(i, 1); continue; }
+    ctx.globalAlpha = h.a; ctx.font = h.s + "px serif"; ctx.fillText(h.e, h.x, h.y);
+  }
+  ctx.globalCompositeOperation = "lighter";
+  for (let i = sparks.length - 1; i >= 0; i--) {
+    const s = sparks[i]; s.x += s.vx; s.y += s.vy; s.vy += .06; s.vx *= .985; s.life -= .014;
+    if (s.life <= 0) { sparks.splice(i, 1); continue; }
+    ctx.globalAlpha = s.life; ctx.fillStyle = "hsl(" + s.hue + ",100%,60%)";
+    ctx.beginPath(); ctx.arc(s.x, s.y, 2.4 * s.life + .5, 0, 6.283); ctx.fill();
+  }
+  ctx.globalCompositeOperation = "source-over"; ctx.globalAlpha = 1;
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+$("more").onclick = launchShow;
+addEventListener("pointerdown", e => { if (P > .5) burst(e.clientX, e.clientY); });
+$("simGo").onclick = () => { const v = $("simIn").value; if (v) { offset = new Date(v) - Date.now(); tick(); } };
+$("simReset").onclick = () => { offset = 0; tick(); };
+
+tick(); setInterval(tick, 1000);
+</script>
+</body>
+</html>
